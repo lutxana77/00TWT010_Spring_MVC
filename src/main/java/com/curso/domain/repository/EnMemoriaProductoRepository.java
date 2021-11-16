@@ -78,4 +78,9 @@ public class EnMemoriaProductoRepository implements ProductoRepository {
     }
 
 
+    @Override
+    public void addProducto(Producto p) {
+    	this.listaDeProductos.add(p);
+    }
+    
 }

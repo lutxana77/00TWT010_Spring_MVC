@@ -3,6 +3,8 @@ package com.curso.service;
 
 import com.curso.domain.Producto;
 import com.curso.domain.repository.ProductoRepository;
+import com.curso.excepciones.GestionProductoException;
+
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +35,19 @@ public class ProductoServiceImpl implements ProductoService {
       return producto;
     }
   
+    
+    @Override
+    public void crearProducto(Producto producto) throws GestionProductoException {
+    	
+    	//busco si existe ya
+    	Producto p = productoRepositorio.getProductoPorId(producto.getIdProducto());
+    	if( p != null) {
+	    	throw new GestionProductoException(producto.getIdProducto(),
+	     			   "No pudo crear el Producto. Ya existe uno con id ");
+    	}
+
+    	productoRepositorio.addProducto(p);
+    	
+    }
     
 }

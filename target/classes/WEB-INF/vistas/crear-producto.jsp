@@ -24,27 +24,32 @@
             <form:form  method="POST" modelAttribute="nuevoProducto"               class="form-horizontal"> 
                 <fieldset> 
                     <legend>Crear un nuevo producto</legend> 
-
+  
                     <div class="form-group"> 
                         <label class="control-label col-lg-2 col-lg-2" 
                             for="idProducto">
-                            Id Producto
+                            <spring:message code="producto.id"> </spring:message>
                         </label> 
                         <div class="col-lg-10"> 
                             <form:input id="idProducto" path="idProducto"                           type="text" class="form:input-large"/> 
                         </div> 
                     </div>
+
                     <div class="form-group"> 
                         <label class="control-label col-lg-2 col-lg-2" 
                                for="nombre">Nombre</label> 
                         <div class="col-lg-10"> 
-                            <form:input id="nombre" path="nombre"                           type="text" class="form:input-large"/> 
+                            <form:input id="nombre" path="nombre" 
+                             type="text" class="form:input-large"/> 
                         </div> 
                     </div>
 
                     <div class="form-group"> 
                         <label class="control-label col-lg-2" 
-                               for="descripcion">Descripción</label> 
+                               for="descripcion">
+                               <spring:message code="producto.desc"> </spring:message>
+
+						</label> 
                         <div class="col-lg-10"> 
                             <form:textarea id="descripcion" 
                                            path="descripcion" rows = "2"/> 
@@ -54,7 +59,8 @@
                         <label class="control-label col-lg-2 col-lg-2" 
                                for="preciUnit">Precio Unitario</label> 
                         <div class="col-lg-10"> 
-                            <form:input id="preciUnit" path="precioUnitario"                           type="text" class="form:input-large"/> 
+                            <form:input id="preciUnit" path="precioUnitario" 
+								 type="text" class="form:input-large"/> 
                         </div> 
                     </div>
 

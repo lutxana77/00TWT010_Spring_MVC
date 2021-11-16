@@ -2,8 +2,9 @@
 package com.curso.service;
 
 import com.curso.domain.Producto;
+import com.curso.excepciones.GestionProductoException;
+
 import java.util.List;
-import java.util.Map;
 
 
 public interface ProductoService {
@@ -12,4 +13,6 @@ public interface ProductoService {
     List<Producto> getProductosPorCategoria(String categoria); 
    // List<Producto> getProductosPorFiltro(Map<String, List<String>> paramsFiltro);
     Producto getProductoPorId(String idProducto);
+    
+    void crearProducto(Producto p) throws GestionProductoException;
 }
