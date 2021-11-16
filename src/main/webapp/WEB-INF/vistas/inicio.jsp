@@ -15,5 +15,14 @@
 			</div>
 		</div>
 	</section>
+	<nav>
+	
+	<a href="comercio/productos" class="btn btn-primary btn-lg active" 
+	   role="button">Productos</a>
+    <a href="comercio/productos/nuevo" class="btn btn-primary btn-lg active" 
+	   role="button">Crear producto</a>
+	
+	</nav>
+	
 </body>
 </html>
