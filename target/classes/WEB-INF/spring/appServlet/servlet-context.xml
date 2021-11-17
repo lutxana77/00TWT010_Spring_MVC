@@ -4,9 +4,11 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
     <!-- DispatcherServlet Context: Define la infraestructura de este Servlet -->
 
@@ -65,6 +67,52 @@
             <beans:ref bean="localeChangeInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
+
+<!-- JPA - HIBERNATE -->
+
+	<!-- data source contra bd -->
+	<beans:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName"
+			value="oracle.jdbc.OracleDriver" />
+		<beans:property name="url"
+			value="jdbc:oracle:thin:@localhost:49161:xe" />
+		<beans:property name="username" value="HR" />
+		<beans:property name="password" value="hr" />
+	</beans:bean>
+
+
+	<!-- factoria de EntityManager de JPA - sustituye persiste.xml -->
+	<beans:bean id="miEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+		<!-- beans:property name="annotatedClasses" value="com.curso.domain.Producto" 
+			/ -->
+		<beans:property name="packagesToScan" value="com.curso.domain" />
+		<beans:property name="jpaVendorAdapter">
+			<beans:bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</beans:property>
+		<beans:property name="jpaProperties">
+			<beans:props>
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</beans:prop>
+				<beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop>
+				<beans:prop key="hibernate.show_sql">true</beans:prop>
+				<beans:prop key="hibernate.format_sql">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+
+
+	<beans:bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<beans:property name="entityManagerFactory"
+			ref="miEntityManagerFactory" />
+	</beans:bean>
+	<!-- @Transactional el inic tx y commit o rollback -->
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
 
 
 </beans:beans>

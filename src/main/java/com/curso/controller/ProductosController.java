@@ -80,10 +80,12 @@ public class ProductosController {
 		return "redirect:/comercio/productos";
 	}
 
-	// href="producto/edit?id" + ${producto.idProducto}
+	
+	// href="producto/edit?id=" + ${producto.idProducto}
 	// mostra el fomulario
 	@GetMapping(value = "/producto/edit")
-	public String getModifProductoFormulario(@RequestParam("id") String productId, Model model)
+	public String getModifProductoFormulario(
+			@RequestParam("id") String productId, Model model)
 			throws GestionProductoException {
 		Producto prodModif = productoService.getProductoPorId(productId);
 
@@ -93,11 +95,11 @@ public class ProductosController {
 		model.addAttribute("productoModif", prodModif);
 		return "modif-producto";
 	}
-
+	
 	@PostMapping(value = "/producto/edit")
 	public String procesarModificarProductoFormulario(
 			@ModelAttribute("productoModif") @Valid Producto productoModif,
-			BindingResult bindingResult) throws com.curso.excepciones.GestionProductoException {
+			BindingResult bindingResult) throws GestionProductoException {
 
 		if (bindingResult.hasErrors()) {
 			return "modif-producto";
