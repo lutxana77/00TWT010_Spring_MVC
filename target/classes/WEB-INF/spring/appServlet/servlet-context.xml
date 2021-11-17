@@ -59,13 +59,12 @@
 		<beans:property name="paramName" value="language" />
 	</beans:bean>
 	
-	
 	<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <beans:ref bean="localeChangeInterceptor"/>
         </mvc:interceptor>
-        
     </mvc:interceptors>
+
 
 </beans:beans>

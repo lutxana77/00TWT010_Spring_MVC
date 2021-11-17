@@ -41,22 +41,22 @@ public class EnMemoriaProductoRepository implements ProductoRepository {
     }
 
     public Producto getProductoPorId(String idProducto) {
-        Producto productoProId = null;
+        Producto productoPorId = null;
 
         for (Producto producto : listaDeProductos) {
             if (producto != null && producto.getIdProducto() != null
                     && producto.getIdProducto().equals(idProducto)) {
-                productoProId = producto;
+            	productoPorId = producto;
                 break;
             }
         }
+//
+//        if (productoProId == null) {
+//            throw new IllegalArgumentException("No se ha encontrado un "
+//                    + "productos con el id: " + idProducto);
+//        }
 
-        if (productoProId == null) {
-            throw new IllegalArgumentException("No se ha encontrado un "
-                    + "productos con el id: " + idProducto);
-        }
-
-        return productoProId;
+        return productoPorId;
     }
 
     @Override
@@ -82,5 +82,20 @@ public class EnMemoriaProductoRepository implements ProductoRepository {
     public void addProducto(Producto p) {
     	this.listaDeProductos.add(p);
     }
+    
+    
+    @Override
+	public void modificarProducto(Producto producto) {
+    	 Producto productoPorId = null;
+
+         for (int i = 0 ; i < this.listaDeProductos.size(); i++) {
+             if ( producto.getIdProducto().equals(listaDeProductos.get(i).getIdProducto())) {
+             	//encobtrado
+            	 listaDeProductos.remove(i);
+            	 listaDeProductos.add(i,producto);
+                 break;
+             }
+         }
+	}
     
 }

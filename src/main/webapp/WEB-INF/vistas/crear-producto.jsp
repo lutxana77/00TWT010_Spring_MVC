@@ -31,7 +31,10 @@
                             <spring:message code="producto.id"> </spring:message>
                         </label> 
                         <div class="col-lg-10"> 
-                            <form:input id="idProducto" path="idProducto"                           type="text" class="form:input-large"/> 
+                            <form:input id="idProducto" path="idProducto"    
+                             type="text" class="form:input-large"/> 
+                             
+                             <form:errors path="idProducto" cssClass="text-danger" />
                         </div> 
                     </div>
 

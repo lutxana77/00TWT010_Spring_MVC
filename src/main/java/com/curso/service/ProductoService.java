@@ -15,4 +15,5 @@ public interface ProductoService {
     Producto getProductoPorId(String idProducto);
     
     void crearProducto(Producto p) throws GestionProductoException;
+    void modificarProducto(Producto p) throws GestionProductoException;
 }

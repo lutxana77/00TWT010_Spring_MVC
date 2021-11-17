@@ -1,6 +1,8 @@
 package com.curso.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import com.curso.excepciones.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.curso.domain.Producto;
 import com.curso.domain.repository.ProductoRepository;
+import com.curso.excepciones.GestionProductoException;
 import com.curso.service.ProductoService;
 
 @Controller
@@ -38,57 +42,80 @@ public class ProductosController {
 	}
 
 	@GetMapping("/productos/{categoria}")
-	public String getProductosPorCategoria(Model model, @PathVariable("categoria") String categoriaProducto) {
+	public String getProductosPorCategoria(Model model,
+			@PathVariable("categoria") String categoriaProducto) {
 
-		model.addAttribute("productos", productoService.getProductosPorCategoria(categoriaProducto));
+		model.addAttribute("productos", 
+				 productoService.getProductosPorCategoria(categoriaProducto));
 		return "productos";
 	}
-	
-	// mostra el fomulario con un producto vacio para 
-	// que el cliente rellene los datos 
+
+	// mostra el fomulario con un producto vacio para
+	// que el cliente rellene los datos
 	@GetMapping(value = "/productos/nuevo")
 	public String getCrearNuevoProductoFormulario(Model model) {
-	
+
 		System.out.println(".... nuevo");
 		Producto nuevoProducto = new Producto();
 		nuevoProducto.setDescripcion("**** nuevo ****");
-		
+
 		model.addAttribute("nuevoProducto", nuevoProducto);
 		return "crear-producto";
 	}
 
 	// tratara los datos recibidos del formulario
-	
-		@PostMapping(value = "/productos/nuevo")
-		public String procesarCrearNuevoProductoFormulario(
-				@ModelAttribute("nuevoProducto") Producto nuevoProducto) throws GestionProductoException {
-			
-			System.out.println("producto nuevo " + nuevoProducto.getDescripcion());
 
-		    productoService.crearProducto(nuevoProducto);
+	@PostMapping(value = "/productos/nuevo")
+	public String procesarCrearNuevoProductoFormulario(
+			@ModelAttribute("nuevoProducto") @Valid Producto nuevoProducto,
+			BindingResult bindingResult) throws GestionProductoException {
 
-			return "redirect:/comercio/productos"; 
+		// comprobar que es valido
+		if (bindingResult.hasErrors()) {
+			return "crear-producto"; // no usar redirect se pierden los erros
 		}
-	
-	
-	
-		@ExceptionHandler(GestionProductoException.class)
-	    public ModelAndView handleError(
-	    		HttpServletRequest req,
-	    		GestionProductoException exception) {
-	 
-	        ModelAndView mav = new ModelAndView();
-	        mav.addObject("idProductoNoEncontrado", 
-	                exception.getIdProducto());
-	        mav.addObject("claveMensage", 
-	                exception.getMessage());
-	        
-	        mav.setViewName("producto-exception");
-	        return mav;
-	    }
-		
-	
-	
-	
+
+		productoService.crearProducto(nuevoProducto);
+
+		return "redirect:/comercio/productos";
+	}
+
+	// href="producto/edit?id" + ${producto.idProducto}
+	// mostra el fomulario
+	@GetMapping(value = "/producto/edit")
+	public String getModifProductoFormulario(@RequestParam("id") String productId, Model model)
+			throws GestionProductoException {
+		Producto prodModif = productoService.getProductoPorId(productId);
+
+		if (prodModif == null) {
+			throw new GestionProductoException(productId, "El producto no existe");
+		}
+		model.addAttribute("productoModif", prodModif);
+		return "modif-producto";
+	}
+
+	@PostMapping(value = "/producto/edit")
+	public String procesarModificarProductoFormulario(
+			@ModelAttribute("productoModif") @Valid Producto productoModif,
+			BindingResult bindingResult) throws com.curso.excepciones.GestionProductoException {
+
+		if (bindingResult.hasErrors()) {
+			return "modif-producto";
+		}
+		productoService.modificarProducto(productoModif);
+		return "redirect:/comercio/productos";
+	}
+
+	@ExceptionHandler(GestionProductoException.class)
+	public ModelAndView handleError(HttpServletRequest req, 
+			GestionProductoException exception) {
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("idProductoNoEncontrado", exception.getIdProducto());
+		mav.addObject("claveMensage", exception.getMessage());
+
+		mav.setViewName("producto-exception");
+		return mav;
+	}
 
 }

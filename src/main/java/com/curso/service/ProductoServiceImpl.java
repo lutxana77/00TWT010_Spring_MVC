@@ -49,5 +49,18 @@ public class ProductoServiceImpl implements ProductoService {
     	productoRepositorio.addProducto(p);
     	
     }
+
+	@Override
+	public void modificarProducto(Producto producto) throws GestionProductoException {
+		//busco si existe ya
+    	Producto p = productoRepositorio.getProductoPorId(producto.getIdProducto());
+    	if( p == null) {
+	    	throw new GestionProductoException(producto.getIdProducto(),
+	     			   "No pudo modificar el Producto. No existe con el id indicado ");
+    	}
+
+    	productoRepositorio.modificarProducto(producto);
+    	
+	}
     
 }

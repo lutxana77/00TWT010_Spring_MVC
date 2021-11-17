@@ -30,6 +30,12 @@
                                 <p>${producto.descripcion}</p>
                                 <p>${producto.precioUnitario} €</p>
                                 <p>Hay  ${producto.unidadesEnStock} unidades in stock</p>
+                                <p>
+                                 <a href="producto/edit?id=${producto.idProducto}" 
+                                    class="btn btn-warning btn-large"> 
+                             		Modificar Producto 
+                           		</a> 
+                                </p>
                             </div>
                         </div>
                     </div>
