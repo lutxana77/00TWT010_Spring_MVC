@@ -16,4 +16,7 @@ public interface ProductoService {
     
     void crearProducto(Producto p) throws GestionProductoException;
     void modificarProducto(Producto p) throws GestionProductoException;
+    
+    void cambiarPrecio(List<Producto> productos, double nuevoPrecio) throws GestionProductoException;
+    
 }
