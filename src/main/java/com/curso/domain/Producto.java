@@ -5,18 +5,22 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.validation.constraints.Size;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(schema = "HR", name = "PRODUCTOS")
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
     @NotNull
 	@Size(min=5, max=10)
     private String idProducto;
-    
-    
-    
+ 
     private String nombre;
     private BigDecimal precioUnitario;
     private String descripcion;
