@@ -3,12 +3,17 @@ package com.curso.service;
 import com.curso.domain.Producto;
 import com.curso.domain.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED)
 public class PedidoServiceImpl implements PedidoService {
 
     @Autowired
+    @Qualifier("JPAProductosRepository")
     private ProductoRepository productoRepositorio;
 
     @Override

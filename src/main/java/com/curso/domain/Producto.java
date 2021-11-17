@@ -7,11 +7,20 @@ import java.util.Objects;
 import javax.validation.constraints.Size;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(schema = "HR", name = "PRODUCTOS")
+@Table( schema="HR", name = "PRODUCTOS")
+@NamedQueries({
+    @NamedQuery(name = "Producto.findAll", 
+    		    query = "SELECT p FROM Producto p"),
+    @NamedQuery(name = "Producto.findByCategoria", 
+    		query = "SELECT p FROM Producto p WHERE p.categoria = :categoria")
+})
 public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,7 +37,10 @@ public class Producto implements Serializable {
     private String categoria;
     private long unidadesEnStock;
     private long unidadesEnPedido;
+    
+    @Transient //por que oracle no tiene tipo boolean
     private boolean disponible;
+    
     private String condiciones;
     
     //cosntructores

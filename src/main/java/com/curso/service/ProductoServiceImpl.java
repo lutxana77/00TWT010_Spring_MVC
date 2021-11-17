@@ -8,11 +8,17 @@ import com.curso.excepciones.GestionProductoException;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED)
 public class ProductoServiceImpl implements ProductoService {
-     @Autowired
+   
+	@Autowired
+	@Qualifier("JPAProductosRepository")
     private ProductoRepository productoRepositorio;
 
    
@@ -46,7 +52,7 @@ public class ProductoServiceImpl implements ProductoService {
 	     			   "No pudo crear el Producto. Ya existe uno con id ");
     	}
 
-    	productoRepositorio.addProducto(p);
+    	productoRepositorio.addProducto(producto);
     	
     }
 

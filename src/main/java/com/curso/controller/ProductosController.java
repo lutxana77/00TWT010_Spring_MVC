@@ -28,15 +28,13 @@ import com.curso.service.ProductoService;
 @RequestMapping("comercio")
 public class ProductosController {
 
-	@Autowired
-	private ProductoRepository productoRepositorio;
 
 	@Autowired
 	private ProductoService productoService;
 
 	@RequestMapping(path = "/productos", method = RequestMethod.GET)
 	public String list(Model model) {
-		model.addAttribute("productos", productoRepositorio.getAllProductos());
+		model.addAttribute("productos", productoService.getTodosProductos());
 
 		return "productos";
 	}
