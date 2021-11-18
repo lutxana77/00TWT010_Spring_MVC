@@ -51,4 +51,12 @@ public class JPAProductoRepository  implements ProductoRepository{
 		em.merge(producto);
 	}
 
+	
+	@Override
+	public void borrarProducto(String id) {
+		Producto p = getProductoPorId(id);
+		if(p != null) em.remove(p);
+	}
+	
+	
 }

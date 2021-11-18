@@ -18,5 +18,5 @@ public interface ProductoService {
     void modificarProducto(Producto p) throws GestionProductoException;
     
     void cambiarPrecio(List<Producto> productos, double nuevoPrecio) throws GestionProductoException;
-    
+    void borrarProducto(String id)  throws GestionProductoException;
 }

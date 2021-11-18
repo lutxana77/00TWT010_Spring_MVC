@@ -11,4 +11,5 @@ public interface ProductoRepository {
     List<Producto> getProductosPoCategoria(String categoria);
     void addProducto(Producto producto );
     void modificarProducto(Producto producto) ;
+    void borrarProducto(String id);
 }
