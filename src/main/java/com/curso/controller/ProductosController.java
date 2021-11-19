@@ -52,7 +52,6 @@ public class ProductosController {
 	@GetMapping(value = "/productos/nuevo")
 	public String getCrearNuevoProductoFormulario(Model model) {
 
-		System.out.println(".... nuevo");
 		Producto nuevoProducto = new Producto();
 		nuevoProducto.setDescripcion("**** nuevo ****");
 

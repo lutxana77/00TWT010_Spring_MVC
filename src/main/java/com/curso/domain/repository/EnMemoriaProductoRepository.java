@@ -100,5 +100,19 @@ public class EnMemoriaProductoRepository implements ProductoRepository {
              }
          }
 	}
+
+	@Override
+	public void borrarProducto(String id) {
+		 Producto productoPorId = null;
+
+         for (int i = 0 ; i < this.listaDeProductos.size(); i++) {
+             if ( id == listaDeProductos.get(i).getIdProducto()) {
+             	//encobtrado
+            	 listaDeProductos.remove(i);
+                 break;
+             }
+         }
+		
+	}
     
 }

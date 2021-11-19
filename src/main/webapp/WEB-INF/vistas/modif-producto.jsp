@@ -36,7 +36,7 @@
 					</label>
 					<div class="col-lg-10">
 						<form:input id="idProducto" path="idProducto" type="text"
-							class="form:input-large" disabled="true" />
+							class="form:input-large" disabled="false" />
 						<form:errors path="idProducto" cssClass="text-danger" />
 					</div>
 

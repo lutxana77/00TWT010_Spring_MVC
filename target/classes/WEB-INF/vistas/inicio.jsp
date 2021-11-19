@@ -21,7 +21,9 @@
 	   role="button">Productos</a>
     <a href="comercio/productos/nuevo" class="btn btn-primary btn-lg active" 
 	   role="button">Crear producto</a>
-	
+	  <a href="comercio/productos/nuevopais" class="btn btn-primary btn-lg active" role="button">Crear pais</a>
+	<a href="comercio/regiones" class="btn btn-primary btn-lg active" 
+	   role="button">REGIONES DEL MUNDO</a>
 	</nav>
 	
 </body>
