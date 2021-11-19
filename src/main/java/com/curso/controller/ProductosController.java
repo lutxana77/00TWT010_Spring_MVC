@@ -28,7 +28,6 @@ import com.curso.service.ProductoService;
 @RequestMapping("comercio")
 public class ProductosController {
 
-
 	@Autowired
 	private ProductoService productoService;
 

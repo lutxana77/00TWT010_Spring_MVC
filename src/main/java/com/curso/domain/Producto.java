@@ -66,6 +66,8 @@ public class Producto implements Serializable {
     public String getNombre() {
         return nombre;
     }
+    
+   
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -79,13 +81,7 @@ public class Producto implements Serializable {
         this.precioUnitario = precionUnitario;
     }
 
-    public String getDescripción() {
-        return descripcion;
-    }
-
-    public void setDescripción(String descripción) {
-        this.descripcion = descripción;
-    }
+   
 
     public String getFabricante() {
         return fabricante;
